@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2007 The Android Open Source Project
+ * Copyright (c) 2012, Code Aurora Forum. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -114,7 +115,9 @@ public:
      * get the local time at which the next write to the audio driver will be
      * presented
      */
+#ifndef ICS_AUDIO_BLOB
     virtual status_t    getNextWriteTimestamp(int64_t *timestamp);
+#endif
 
 };
 
@@ -208,6 +211,11 @@ public:
 
     /** set the audio volume of a voice call. Range is between 0.0 and 1.0 */
     virtual status_t    setVoiceVolume(float volume) = 0;
+
+#ifdef QCOM_FM_ENABLED
+    /** set the fm volume. Range is between 0.0 and 1.0 */
+    virtual status_t    setFmVolume(float volume) { return 0; }
+#endif
 
     /**
      * set the audio volume for all audio activities other than voice call.
